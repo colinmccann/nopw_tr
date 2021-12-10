@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 
 	"golang.org/x/net/icmp"
 )
@@ -10,7 +10,7 @@ func main() {
 	// open up the listening address for returning ICMP packets. Or is this two way somehow?
 	c, err := icmp.ListenPacket("udp4", "0.0.0.0")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	defer c.Close()
 
