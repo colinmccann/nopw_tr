@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"net"
 	"os"
 
 	"golang.org/x/net/icmp"
@@ -25,13 +24,13 @@ func main() {
 		},
 	}
 
-	wb, err := wm.Marshal(nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-	if _, err := c.WriteTo(wb, &net.UDPAddr{IP: net.ParseIP("142.1.217.155"), Zone: "en0"}); err != nil {
-		log.Fatal(err)
-	}
+	// wb, err := wm.Marshal(nil)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// if _, err := c.WriteTo(wb, &net.UDPAddr{IP: net.ParseIP("142.1.217.155"), Zone: "en0"}); err != nil {
+	// 	log.Fatal(err)
+	// }
 
 	rb := make([]byte, 1500)
 	n, peer, err := c.ReadFrom(rb)
