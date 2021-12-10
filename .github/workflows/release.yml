@@ -1,7 +1,7 @@
-name: release
+name: Build and run on all OSes
 on: [push]
 jobs:
-  check-bats-version:
+  release:
     runs-on: ubuntu-latest
 #     windows-latest, mac-os-latest
 #     runs-on: ${{ matrix.os }}
@@ -17,4 +17,5 @@ jobs:
           go-version: '1.17.3'
       - name: Build
         run: go build -v ./...
-      - run: ./nopw_tr
+      - name: Run the binary
+        run: sudo ./nopw_tr
