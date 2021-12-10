@@ -40,12 +40,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	rm, err := icmp.ParseMessage(58, rb[:n])
-	if err != nil {
-		log.Fatal(err)
-	}
+	// rm, err := icmp.ParseMessage(58, rb[:n])
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	log.Printf("Received rm - %+v - from peer - %+v", rm, peer)
+	// log.Printf("Received rm - %+v - from peer - %+v", rm, peer)
 
 	// client := &http.Client{
 	// 	Transport: &http.Transport{
