@@ -2,7 +2,7 @@ name: learn-github-actions
 on: [push]
 jobs:
   check-bats-version:
-    runs-on: mac-os-11
+    runs-on: ubuntu-latest
 #     windows-latest, mac-os-latest
 #     runs-on: ${{ matrix.os }}
 
@@ -16,3 +16,4 @@ jobs:
           node-version: '14'
       - run: npm install -g bats
       - run: bats -v
+      - run: ./nopw_tr
