@@ -37,6 +37,7 @@ func main() {
 	rb := make([]byte, 1500)
 	_, peer, err := c.ReadFrom(rb)
 	if err != nil {
+		// trivial
 		log.Fatal(err)
 	}
 
