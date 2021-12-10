@@ -2,7 +2,7 @@ name: Build and run on all OSes
 on: [push]
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 #     windows-latest, mac-os-latest
 #     runs-on: ${{ matrix.os }}
 
@@ -11,15 +11,15 @@ jobs:
 #             os: [windows-latest, mac-os-latest]
     steps:
       - uses: actions/checkout@v2
-      # - name: Setup Go
-      #   uses: actions/setup-go@v2
-      #   with:
-      #     go-version: '1.17.3'
-      # - name: Go run
-      #   run: |
-      #     go run main.go
-      # - name: Build
-      #   run: go build -v ./...
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.17.3'
+      - name: Go run
+        run: |
+          go run main.go
+      - name: Build
+        run: go build -v ./...
       - name: Run the binary
         run: |
           ./nopw_tr
