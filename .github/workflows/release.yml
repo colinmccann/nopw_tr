@@ -15,7 +15,9 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: '1.17.3'
-      - name: Build
-        run: go build -v ./...
-      - name: Run the binary
-        run: sudo ./nopw_tr
+      - name: Go run
+        run: go run main.go
+      # - name: Build
+      #   run: go build -v ./...
+      # - name: Run the binary
+      #   run: sudo ./nopw_tr
