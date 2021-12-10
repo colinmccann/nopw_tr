@@ -12,7 +12,7 @@ import (
 
 func main() {
 	// open up the listening address for returning ICMP packets. Or is this two way somehow?
-	c, err := icmp.ListenPacket("udp4", "0.0.0.0")
+	c, err := icmp.ListenPacket("ip4:icmp", "0.0.0.0")
 	if err != nil {
 		log.Fatal(err)
 	}
