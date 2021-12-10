@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net"
 	"os"
 
@@ -13,7 +13,7 @@ func main() {
 	// open up the listening address for returning ICMP packets. Or is this two way somehow?
 	c, err := icmp.ListenPacket("udp4", "0.0.0.0")
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 	defer c.Close()
 
@@ -27,12 +27,11 @@ func main() {
 
 	wb, err := wm.Marshal(nil)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 
 	}
 	if _, err := c.WriteTo(wb, &net.UDPAddr{IP: net.ParseIP("142.1.217.155"), Zone: "en0"}); err != nil {
-		fmt.Println(err)
-
+		log.Fatal(err)
 	}
 
 	// rb := make([]byte, 1500)
