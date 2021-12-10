@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net"
 	"os"
@@ -34,18 +35,20 @@ func main() {
 		log.Fatal(err)
 	}
 
-	rb := make([]byte, 1500)
-	n, peer, err := c.ReadFrom(rb)
-	if err != nil {
-		log.Fatal(err)
-	}
+	fmt.Println("Got here")
 
-	rm, err := icmp.ParseMessage(58, rb[:n])
-	if err != nil {
-		log.Fatal(err)
-	}
+	// rb := make([]byte, 1500)
+	// n, peer, err := c.ReadFrom(rb)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	log.Printf("Received rm - %+v - from peer - %+v", rm, peer)
+	// rm, err := icmp.ParseMessage(58, rb[:n])
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	// log.Printf("Received rm - %+v - from peer - %+v", rm, peer)
 
 	// client := &http.Client{
 	// 	Transport: &http.Transport{
