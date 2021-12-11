@@ -58,7 +58,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Got here - the issue is probably with PraseMessage")
+	fmt.Println("Got here - the issue is probably with PraseMessage") // trivial
 
 	readMessage, err := icmp.ParseMessage(58, readBuffer[:readBytes])
 	if err != nil {
