@@ -16,16 +16,17 @@ func main() {
 
 	// open up the listening address for returning ICMP packets. Or is this two way somehow?
 	// c should be renamed socket?
-	// c, err := icmp.ListenPacket("ip4:icmp", "0.0.0.0")
-	icmpSocket, err := net.ListenPacket("ip4:icmp", "0.0.0.0")
+	c, err := icmp.ListenPacket("udp4", "0.0.0.0")
+	// icmpSocket, err := net.ListenPacket("ip4:icmp", "0.0.0.0")
 
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer icmpSocket.Close()
-
-	c := ipv4.NewPacketConn(icmpSocket)
 	defer c.Close()
+	// defer icmpSocket.Close()
+
+	// c := ipv4.NewPacketConn(icmpSocket)
+	// defer c.Close()
 
 	wm := icmp.Message{
 		Type: ipv4.ICMPTypeEcho, Code: 0,
@@ -44,28 +45,36 @@ func main() {
 	// 	fmt.Fprintf(os.Stderr, "Could not send the ICMP packet: %s\n", err)
 	// 	os.Exit(1)
 	// }
-	if _, err := c.WriteTo(wb, nil, &net.UDPAddr{IP: net.ParseIP("142.1.217.155"), Zone: "en0"}); err != nil {
+	// if _, err := c.WriteTo(wb, nil, &net.UDPAddr{IP: net.ParseIP("142.1.217.155"), Zone: "en0"}); err != nil {
+	// 	log.Fatal(err)
+	// }
+	if _, err := c.WriteTo(wb, &net.UDPAddr{IP: net.ParseIP("142.1.217.155"), Zone: "en0"}); err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Println("Got here - the issue is probably with ReadFrom")
 
 	readBuffer := make([]byte, 1500)
-	// n, peer, err := c.ReadFrom(readBuffer)
-	readBytes, _, hopNode, err := c.ReadFrom(readBuffer)
+	n, peer, err := c.ReadFrom(readBuffer)
+	// readBytes, _, hopNode, err := c.ReadFrom(readBuffer)
 	if err != nil {
 		fmt.Println("Danger WR!")
 		log.Fatal(err)
 	}
 
-	fmt.Println("Got here - the issue is probably with PraseMessage") // trivial
+	fmt.Println("Got here - the issue is probably with PraseMessage")
 
-	readMessage, err := icmp.ParseMessage(58, readBuffer[:readBytes])
+	readMessage, err := icmp.ParseMessage(58, readBuffer[:n])
 	if err != nil {
 		log.Fatal(err)
 	}
+	// readMessage, err := icmp.ParseMessage(58, readBuffer[:?])
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	log.Printf("Received readMessage - %+v - from hopNode - %+v", readMessage, hopNode)
+	log.Printf("Received readMessage - %+v - from peer - %+v", readMessage, peer)
+	// log.Printf("Received readMessage - %+v - from hopNode - %+v", readMessage, hopNode)
 
 	// client := &http.Client{
 	// 	Transport: &http.Transport{
