@@ -60,7 +60,7 @@ func main() {
 	fmt.Println("Got here - the issue is probably with ReadFrom")
 
 	readBuffer := make([]byte, 1500)
-	n, peer, err := c.ReadFrom(readBuffer) // trivial
+	n, peer, err := c.ReadFrom(readBuffer)
 	// readBytes, _, hopNode, err := c.ReadFrom(readBuffer)
 	if err != nil {
 		fmt.Println("Danger WR!")
