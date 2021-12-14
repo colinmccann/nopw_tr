@@ -1,3 +1,6 @@
+// Next step is to start modifying the my_traceroute instead of the other way around
+// And look at that failed windows GH action
+
 package main
 
 import (
@@ -39,7 +42,6 @@ func main() {
 	wb, err := wm.Marshal(nil)
 	if err != nil {
 		log.Fatal(err)
-
 	}
 	// if _, err := c.WriteTo(wb, nil, &dst); err != nil {
 	// 	fmt.Fprintf(os.Stderr, "Could not send the ICMP packet: %s\n", err)
@@ -48,9 +50,12 @@ func main() {
 	// if _, err := c.WriteTo(wb, nil, &net.UDPAddr{IP: net.ParseIP("142.1.217.155"), Zone: "en0"}); err != nil {
 	// 	log.Fatal(err)
 	// }
-	if _, err := c.WriteTo(wb, &net.UDPAddr{IP: net.ParseIP("142.1.217.155"), Zone: "en0"}); err != nil {
+	resp, err := c.WriteTo(wb, &net.UDPAddr{IP: net.ParseIP("142.1.217.155"), Zone: "en0"})
+	if err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Printf("Resp is %v\n", resp)
 
 	fmt.Println("Got here - the issue is probably with ReadFrom")
 
@@ -62,7 +67,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Got here - the issue is probably with PraseMessage")
+	fmt.Printf("RB: %v, HN: %v\n", n, peer)
+
+	fmt.Println("Got here - the issue is probably with ParseMessage")
 
 	readMessage, err := icmp.ParseMessage(58, readBuffer[:n])
 	if err != nil {
@@ -76,21 +83,21 @@ func main() {
 	log.Printf("Received readMessage - %+v - from peer - %+v", readMessage, peer)
 	// log.Printf("Received readMessage - %+v - from hopNode - %+v", readMessage, hopNode)
 
-	// client := &http.Client{
-	// 	Transport: &http.Transport{
-	// 		DialContext: dialer.DialContext,
-	// 	},
-	// }
+	// 	// client := &http.Client{
+	// 	// 	Transport: &http.Transport{
+	// 	// 		DialContext: dialer.DialContext,
+	// 	// 	},
+	// 	// }
 
-	// resp, err := client.Get("http://ixmaps.ca")
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// defer resp.Body.Close()
+	// 	// resp, err := client.Get("http://ixmaps.ca")
+	// 	// if err != nil {
+	// 	// 	panic(err)
+	// 	// }
+	// 	// defer resp.Body.Close()
 
-	// body, err := io.ReadAll(resp.Body)
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// fmt.Println(string(body))
+	// 	// body, err := io.ReadAll(resp.Body)
+	// 	// if err != nil {
+	// 	// 	panic(err)
+	// 	// }
+	// 	// fmt.Println(string(body))
 }
