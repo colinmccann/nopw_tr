@@ -2,7 +2,7 @@ name: Build and run on all OSes
 on: [push]
 jobs:
   release:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     #     windows-latest, mac-os-latest
     #     runs-on: ${{ matrix.os }}
 
